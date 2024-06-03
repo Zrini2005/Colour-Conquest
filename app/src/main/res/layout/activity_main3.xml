@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relative"
+    tools:context=".MainActivity"
+    android:background="@drawable/backround">
+
+    <GridLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:background="#ff5f57"
+        android:padding="16dp">
+
+    </GridLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="36dp"
+        android:id="@+id/xbutton"
+        android:layout_height="36dp"
+        android:background="@drawable/xback"
+        android:drawableTop="@drawable/xshape"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        />
+
+    <TextView
+        android:id="@+id/score2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:textStyle="bold"
+        android:background="@drawable/scoretxtview"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:rotationX="180"
+        android:rotationY="180"
+        android:textColor="#2fb7f1" />
+    <TextView
+        android:layout_width="75dp"
+        android:id="@+id/score1"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:background="@drawable/scoretxtview"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ff5f57"
+        />
+
+    <TextView
+        android:layout_width="125dp"
+        android:layout_height="75dp"
+        android:id="@+id/player1name"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="75dp"
+        android:background="@drawable/playernametxtview"
+        android:gravity="center"
+        android:text="Player 1"
+        android:textColor="#ff5f57"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="125dp"
+        android:id="@+id/player2name"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="75dp"
+        android:background="@drawable/playernametxtview"
+        android:gravity="center"
+        android:rotationX="180"
+        android:rotationY="180"
+        android:text="Player 2"
+        android:textColor="#2fb7f1"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/Timer1"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="220dp"
+        android:layout_marginBottom="30dp"/>
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/Timer2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="220dp"
+        android:layout_marginTop="30dp"
+        android:rotationX="180"
+        android:rotationY="180"/>
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

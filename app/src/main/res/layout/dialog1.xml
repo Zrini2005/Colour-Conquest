@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+
+    android:background="@drawable/dialogshape1"
+    >
+
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="290dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/dialogtextview"
+        android:gravity="center"
+        android:text="@string/rules_and_game"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+    <ScrollView
+    android:layout_width="320dp"
+    android:layout_height="500dp"
+    android:layout_below="@id/textview1"
+    android:id="@+id/scrollView"
+    android:layout_centerHorizontal="true"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:orientation="vertical">
+         <TextView
+        android:id="@+id/textview2"
+        android:layout_width="320dp"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"
+
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="@string/_1st_turn_of_each_player_players_can_choose_any_tile_on_the_grid_on_this_turn_only_clicking_a_tile_assigns_your_colour_to_it_and_awards_you_3_points_on_that_tile_subsequent_turns_after_the_first_turn_players_can_only_click_on_tiles_that_already_have_their_own_colour_clicking_a_tile_with_your_colour_adds_1_point_to_that_tile_the_background_colour_indicates_the_next_player_conquest_and_expansion_when_a_tile_with_your_colour_reaches_4_points_it_triggers_an_expansion_the_colour_completely_disappears_from_the_original_tile_your_colour_spreads_to_the_four_surrounding_squares_in_a_plus_shape_up_down_left_right_each_of_the_four_surrounding_squares_gains_1_point_with_your_colour_if_any_of_the_four_has_your_opponent_s_colour_you_conquer_the_opponent_s_points_on_that_tile_while_adding_a_point_to_it_completely_erasing_theirs_the_expansion_is_retriggered_if_the_neighbouring_tile_as_well_reaches_4_points_this_way_players_take_turns_clicking_on_tiles_and_the_objective_is_to_eliminate_your_opponent_s_colour_entirely_from_the_screen_user_is_supposed_to_choose_the_number_of_players_provide_names_and_select_their_interested_gridsizes_making_the_game_interactive_enjoy_the_game"  />
+
+    </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:textSize="30sp"
+        android:layout_below="@id/scrollView"
+        android:layout_centerHorizontal="true"
+        app:backgroundTint="#01c1f0"
+        android:text="@string/okay"
+        />
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="buttn">#2eb7f0</color>
+    <color name="colorPrimary">#007bff</color>
+    <color name="playerone">#ff5f57</color>
+    <color name="playertwo">#2fb7f1</color>
+    <color name="playerthree">#F034C0</color>
+    <color name="playerfour">#0F9D58</color>
+    <color name="gridbox">#2E0D69</color>
+    <color name="playername">#2f333a</color>
+    <color name="blue">#0F20AB</color>
+</resources>
