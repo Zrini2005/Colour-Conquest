@@ -413,7 +413,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         TextView textView = new TextView(this);
         RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(
-                200, 200
+                200, 215
         );
         Typeface boldTypeface = Typeface.defaultFromStyle(Typeface.BOLD);
         textView.setTypeface(boldTypeface);

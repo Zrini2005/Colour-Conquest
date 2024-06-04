@@ -147,8 +147,9 @@
         android:id="@+id/Timer2"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="90dp"
+        android:gravity="end"
         android:rotationX="180"
         android:rotationY="180"/>
     <TextView
@@ -157,17 +158,19 @@
         android:id="@+id/Timer1"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="70dp"/>
+        android:layout_marginEnd="10dp"
+        android:gravity="end"
+        android:layout_marginBottom="90dp"/>
     <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/Timer3"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="40dp"
         android:rotation="90"
-        android:layout_marginBottom="100dp"/>
+        android:gravity="center"
+        android:layout_marginBottom="90dp"/>
     <TextView
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -175,9 +178,62 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="90dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="45dp"
+        android:gravity="center"
         android:rotation="-90"
         android:layout_marginBottom="120dp"/>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="10dp"
+
+        android:max="30"
+        android:progress="0"
+        />
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="10dp"
+
+        android:max="30"
+        android:progress="0"
+        />
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="95dp"
+        android:layout_marginStart="35dp"
+        android:rotation="90"
+        android:max="30"
+        android:progress="0"
+        />
+    <ProgressBar
+        android:id="@+id/progressBar4"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="95dp"
+        android:layout_marginEnd="40dp"
+        android:rotation="-90"
+        android:max="30"
+        android:progress="0"
+        />
 
 
 

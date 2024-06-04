@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -61,6 +62,9 @@ public class MainActivity3 extends AppCompatActivity {
     private String player1name,player2name;
     private boolean player1firstturn=true;
     private boolean player2firstturn=true;
+    private ProgressBar progressBar;
+    private ProgressBar progressBar2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,13 @@ public class MainActivity3 extends AppCompatActivity {
         m = Integer.parseInt(mstring);
         scores = new int[m][m];
         grid = new int[m][m];
+        progressBar=findViewById(R.id.progressBar);
+        progressBar.setMax(30);
+        progressBar2=findViewById(R.id.progressBar2);
+        progressBar2.setMax(30);
+
+
+
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -196,7 +207,7 @@ public class MainActivity3 extends AppCompatActivity {
             ObjectAnimator YDown = ObjectAnimator.ofFloat(button, "scaleY", 1.2f, 1f);
 
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(XUp,YUp, YDown, YDown);
+            animatorSet.playTogether(XUp,YUp, XDown, YDown);
             animatorSet.setDuration(200);
             animatorSet.start();
             grid[row][col] = currentPlayer;
@@ -386,6 +397,8 @@ public class MainActivity3 extends AppCompatActivity {
         outercontainer.setBackgroundResource(R.drawable.backround);
         player1firstturn=true;
         player2firstturn=true;
+        progressBar.setProgress(30);
+        progressBar2.setProgress(30);
         rotateButtons();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
@@ -452,6 +465,8 @@ public class MainActivity3 extends AppCompatActivity {
                 long remainingTime = millisUntilFinished;
                 long seconds = remainingTime / 1000;
                 timerTextView.setText(String.format("%02d:%02d", seconds / 60, seconds % 60));
+                progressBar.setProgress((int) seconds);
+
             }
 
             @Override
@@ -469,6 +484,7 @@ public class MainActivity3 extends AppCompatActivity {
             pausetime=System.currentTimeMillis();
             timerPaused = true;
             timer.cancel();
+
         }
     }
 
@@ -480,6 +496,7 @@ public class MainActivity3 extends AppCompatActivity {
                 timerPaused = false;
             } else {
                 timerTextView.setText("Time's up!");
+
             }
         }
     }
@@ -492,6 +509,7 @@ public class MainActivity3 extends AppCompatActivity {
                 long remainingTime2 = millisUntilFinished;
                 long seconds = remainingTime2 / 1000;
                 timerTextView2.setText(String.format("%02d:%02d", seconds / 60, seconds % 60));
+                progressBar2.setProgress((int) seconds);
             }
 
             @Override

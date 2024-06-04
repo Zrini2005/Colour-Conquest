@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -71,6 +72,9 @@ public class MainActivity5 extends AppCompatActivity {
     private boolean player1firstturn = true;
     private boolean player2firstturn = true;
     private boolean player3firstturn = true;
+    private ProgressBar progressBar;
+    private ProgressBar progressBar2;
+    private ProgressBar progressBar3;
 
 
     @Override
@@ -102,6 +106,18 @@ public class MainActivity5 extends AppCompatActivity {
         m = Integer.parseInt(mstring);
         scores = new int[m][m];
         grid = new int[m][m];
+        progressBar=findViewById(R.id.progressBar);
+        progressBar.setMax(30);
+        progressBar2=findViewById(R.id.progressBar2);
+        progressBar2.setMax(30);
+        progressBar3=findViewById(R.id.progressBar3);
+        progressBar3.setMax(30);
+        if(!timevar){
+            progressBar.setVisibility(View.GONE);
+            progressBar2.setVisibility(View.GONE);
+            progressBar3.setVisibility(View.GONE);
+        }
+
 
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_GAME)
@@ -493,6 +509,9 @@ public class MainActivity5 extends AppCompatActivity {
         player1out=false;
         player2out=false;
         player3out=false;
+        progressBar.setProgress(30);
+        progressBar2.setProgress(30);
+        progressBar3.setProgress(30);
         rotateButtons();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
@@ -597,6 +616,7 @@ public class MainActivity5 extends AppCompatActivity {
                 long remainingTime = millisUntilFinished;
                 long seconds = remainingTime / 1000;
                 timerTextView.setText(String.format("%02d:%02d", seconds / 60, seconds % 60));
+                progressBar.setProgress((int) seconds);
             }
 
             @Override
@@ -664,6 +684,7 @@ public class MainActivity5 extends AppCompatActivity {
                 long remainingTime2 = millisUntilFinished;
                 long seconds = remainingTime2 / 1000;
                 timerTextView2.setText(String.format("%02d:%02d", seconds / 60, seconds % 60));
+                progressBar2.setProgress((int) seconds);
             }
 
             @Override
@@ -730,6 +751,7 @@ public class MainActivity5 extends AppCompatActivity {
                 long remainingTime3 = millisUntilFinished;
                 long seconds = remainingTime3 / 1000;
                 timerTextView3.setText(String.format("%02d:%02d", seconds / 60, seconds % 60));
+                progressBar3.setProgress((int) seconds);
             }
 
             @Override
