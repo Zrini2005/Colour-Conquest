@@ -30,10 +30,10 @@ public class MainActivity2 extends AppCompatActivity {
     private Button button, button1, button2;
     private TextView gridsize,textView1,textView2;
     private LinearLayout linearLayout, linearLayout2;
-    private boolean allPlayersEntered = true;
+    private boolean allplayersentered = true;
     int selectedsize = -1;
     ArrayList<Integer> sizeList = new ArrayList<>();
-    private String getPlayerNumber;
+    private String getplayernumber;
     String[] sizeArray = {"3", "4", "5", "6", "7"};
     private String[] player= new String[4];
     private EditText[] editTexts;
@@ -43,36 +43,36 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        getPlayerNumber=getIntent().getStringExtra("playernumber");
-        String[] playerNumberParts = getPlayerNumber.split(" ");
-        String firstWord = playerNumberParts[0];
-        int numberOfPlayers = Integer.parseInt(firstWord);
+        getplayernumber=getIntent().getStringExtra("playernumber");
+        String[] playernumberpart = getplayernumber.split(" ");
+        String firstWord = playernumberpart[0];
+        int noplayers = Integer.parseInt(firstWord);
 
         gridsize = findViewById(R.id.gridsize);
         linearLayout = findViewById(R.id.linearLayout);
-        editTexts = new EditText[numberOfPlayers];
+        editTexts = new EditText[noplayers];
 
-        for (int i = 1; i <= numberOfPlayers; i++) {
-            RelativeLayout playerLayout = createPlayerLayout(i);
-            RelativeLayout playerLayout2 = createPlayerLayout2(i);
+        for (int i = 1; i <= noplayers; i++) {
+            RelativeLayout playerlayout = createplayerlayout(i);
+            RelativeLayout playerlayout2 = createplayerlayout2(i);
 
-            LinearLayout playerRow = new LinearLayout(this);
-            playerRow.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout playerrow = new LinearLayout(this);
+            playerrow.setOrientation(LinearLayout.HORIZONTAL);
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.weight = 1;
             params.setMargins(10, 10, 10, 10);
 
-            playerLayout.setLayoutParams(params);
-            playerLayout2.setLayoutParams(params);
+            playerlayout.setLayoutParams(params);
+            playerlayout2.setLayoutParams(params);
 
-            playerRow.addView(playerLayout);
-            playerRow.addView(playerLayout2);
+            playerrow.addView(playerlayout);
+            playerrow.addView(playerlayout2);
 
-            linearLayout.addView(playerRow);
+            linearLayout.addView(playerrow);
 
         }
-        for (int i = 1; i <= numberOfPlayers; i++) {
+        for (int i = 1; i <= noplayers; i++) {
             editTexts[i-1] = getEditText(i);
         }
 
@@ -121,15 +121,15 @@ public class MainActivity2 extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                allPlayersEntered=true;
-                for (int i = 0; i < numberOfPlayers; i++) {
+                allplayersentered=true;
+                for (int i = 0; i < noplayers; i++) {
                     player[i] = editTexts[i].getText().toString();
                     if (player[i].isEmpty()) {
-                        allPlayersEntered = false;
+                        allplayersentered = false;
                         break;
                     }
                 }
-                if(!allPlayersEntered && gridsize.getText().toString().isEmpty()){
+                if(!allplayersentered && gridsize.getText().toString().isEmpty()){
                     final Dialog dialog = new Dialog(MainActivity2.this);
                     dialog.setContentView(R.layout.dialog4);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -149,7 +149,7 @@ public class MainActivity2 extends AppCompatActivity {
                     });
                     dialog.show();
                 }
-                else if(!allPlayersEntered && !gridsize.getText().toString().isEmpty()){
+                else if(!allplayersentered && !gridsize.getText().toString().isEmpty()){
                     final Dialog dialog = new Dialog(MainActivity2.this);
                     dialog.setContentView(R.layout.dialog4);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -169,9 +169,9 @@ public class MainActivity2 extends AppCompatActivity {
                     });
                     dialog.show();
                 }
-                else if (!gridsize.getText().toString().isEmpty() && allPlayersEntered ) {
+                else if (!gridsize.getText().toString().isEmpty() && allplayersentered ) {
 
-                    if (numberOfPlayers == 2) {
+                    if (noplayers == 2) {
                         final Dialog dialog = new Dialog(MainActivity2.this);
                         dialog.setContentView(R.layout.gamemodedialog);
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -203,7 +203,7 @@ public class MainActivity2 extends AppCompatActivity {
                             }
                         });
                         dialog.show();
-                    } else if (numberOfPlayers==3) {
+                    } else if (noplayers==3) {
                         final Dialog dialog = new Dialog(MainActivity2.this);
                         dialog.setContentView(R.layout.gamemodedialog);
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -242,7 +242,7 @@ public class MainActivity2 extends AppCompatActivity {
                         });
                         dialog.show();
 
-                    } else if (numberOfPlayers==4) {
+                    } else if (noplayers==4) {
                         final Dialog dialog = new Dialog(MainActivity2.this);
                         dialog.setContentView(R.layout.gamemodedialog);
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -283,7 +283,7 @@ public class MainActivity2 extends AppCompatActivity {
                         });
                         dialog.show();
 
-                    } else if (numberOfPlayers==1) {
+                    } else if (noplayers==1) {
                         Intent intent = new Intent(MainActivity2.this, MainActivity7.class);
                         intent.putExtra("m", gridsize.getText().toString());
                         intent.putExtra("player1", player[0]);
@@ -291,7 +291,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                     }
                 }
-                else if(gridsize.getText().toString().isEmpty() && allPlayersEntered) {
+                else if(gridsize.getText().toString().isEmpty() && allplayersentered) {
                     final Dialog dialog = new Dialog(MainActivity2.this);
                     dialog.setContentView(R.layout.dialog4);
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -323,7 +323,7 @@ public class MainActivity2 extends AppCompatActivity {
         return null;
     }
 
-    private RelativeLayout createPlayerLayout(int playerNumber) {
+    private RelativeLayout createplayerlayout(int playerNumber) {
         RelativeLayout relativeLayout = new RelativeLayout(this);
         RelativeLayout.LayoutParams relLayoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -401,7 +401,7 @@ public class MainActivity2 extends AppCompatActivity {
         return relativeLayout;
     }
 
-    private RelativeLayout createPlayerLayout2(int playerNumber) {
+    private RelativeLayout createplayerlayout2(int playerNumber) {
         RelativeLayout relativeLayout2 = new RelativeLayout(this);
         RelativeLayout.LayoutParams relLayoutParams2 = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,

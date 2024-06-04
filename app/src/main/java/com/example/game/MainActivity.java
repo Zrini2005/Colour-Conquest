@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView2;
     private TextView playNumber;
     private TextView textView,textView1,textView2;
-    private List<String> gameHistory1;
+    private List<String> gamehistory1;
 
     int selectedsize = -1;
-    String[] sizeArray = {"1 Player(vs Computer)", "2 Player (Classic)", "3", "4"};
+    String[] sizeArray = {"1 Player(vs Computer)", "2 Player (Classic)", "3 Player", "4 Player"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,11 +171,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        gameHistory1 = getIntent().getStringArrayListExtra("gameHistory");
-        if (gameHistory1 != null) {
-            appendAndSaveGameHistory(gameHistory1);
+        gamehistory1 = getIntent().getStringArrayListExtra("gameHistory");
+        if (gamehistory1 != null) {
+            appendAndSaveGameHistory(gamehistory1);
         } else {
-            gameHistory1 = new ArrayList<>();
+            gamehistory1 = new ArrayList<>();
         }
 
         imageView2.setOnClickListener(new View.OnClickListener() {
@@ -203,13 +203,13 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText("No game history");
                     }
                 });
-                List<String> gameHistory = getGameHistory();
-                if (gameHistory != null && !gameHistory.isEmpty()) {
-                    StringBuilder historyStringBuilder = new StringBuilder();
-                    for (String move : gameHistory) {
-                        historyStringBuilder.append(move).append("\n");
+                List<String> gamehistory = getGameHistory();
+                if (gamehistory != null && !gamehistory.isEmpty()) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (String move : gamehistory) {
+                        stringBuilder.append(move).append("\n");
                     }
-                    textView.setText(historyStringBuilder.toString());
+                    textView.setText(stringBuilder.toString());
                 } else {
                     textView.setText("No game history");
                 }
@@ -219,18 +219,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void appendAndSaveGameHistory(List<String> newGameHistory) {
-        List<String> existingGameHistory = getGameHistory();
-        if (existingGameHistory.isEmpty()) {
-            existingGameHistory = new ArrayList<>();
+        List<String> oldgamehistory = getGameHistory();
+        if (oldgamehistory.isEmpty()) {
+            oldgamehistory = new ArrayList<>();
         }
-        existingGameHistory.addAll(0, newGameHistory);
-        saveGameHistory(existingGameHistory);
+        oldgamehistory.addAll(0, newGameHistory);
+        saveGameHistory(oldgamehistory);
     }
 
-    private void saveGameHistory(List<String> gameHistory) {
+    private void saveGameHistory(List<String> gamehistory) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<String> gameHistorySet = new HashSet<>(gameHistory);
+        Set<String> gameHistorySet = new HashSet<>(gamehistory);
         editor.putStringSet("gameHistory", gameHistorySet);
         editor.apply();
     }

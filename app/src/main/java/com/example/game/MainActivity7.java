@@ -38,24 +38,22 @@ import java.util.Random;
 
 public class MainActivity7 extends AppCompatActivity {
     private int m ;
-    private int buttonSize;
-    private boolean isOnePlayerMode=true;
+    private int buttonsize;
     private int currentPlayer = 1;
     private int[][] scores;
     private int[][] grid;
     private RelativeLayout layout;
-    private GridLayout outerContainer;
+    private GridLayout outercontainer;
     private TextView textView1,textView2;
     private List<String> gameHistory = new ArrayList<>();
-    private static final int MAX_HISTORY_SIZE = 10;
     private SoundPool soundPool;
     private TextView player1;
     private String player1name;
-    private int clickSoundId;
-    private int expandId;
-    private int wrngbtnID;
-    private boolean player1FirstTurn=true;
-    private boolean player2FirstTurn=true;
+    private int clicksound;
+    private int expandsound;
+    private int wrngbtn;
+    private boolean player1firstturn=true;
+    private boolean player2firstturn=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +76,12 @@ public class MainActivity7 extends AppCompatActivity {
                 .setAudioAttributes(audioAttributes)
                 .build();
 
-        clickSoundId = soundPool.load(this, R.raw.sound1, 1);
-        expandId = soundPool.load(this, R.raw.sound2, 1);
-        wrngbtnID=soundPool.load(this, R.raw.wrongbtn, 1);
+        clicksound = soundPool.load(this, R.raw.sound1, 1);
+        expandsound = soundPool.load(this, R.raw.sound2, 1);
+        wrngbtn=soundPool.load(this, R.raw.wrongbtn, 1);
         layout=findViewById(R.id.relative);
-        outerContainer = findViewById(R.id.buttonContainer);
-        outerContainer.setColumnCount(1);
+        outercontainer = findViewById(R.id.buttonContainer);
+        outercontainer.setColumnCount(1);
         Button button1 = findViewById(R.id.xbutton);
         textView1=findViewById(R.id.score1);
         textView2=findViewById(R.id.score2);
@@ -130,20 +128,20 @@ public class MainActivity7 extends AppCompatActivity {
             }
         });
 
-        GridLayout innerContainer = new GridLayout(this);
-        innerContainer.setColumnCount(m);
-        outerContainer.addView(innerContainer);
+        GridLayout innercontainer = new GridLayout(this);
+        innercontainer.setColumnCount(m);
+        outercontainer.addView(innercontainer);
 
         if(m==5) {
-            buttonSize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1);
+            buttonsize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1);
         } else if (m==7) {
-            buttonSize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1)+20;
+            buttonsize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1)+20;
         } else if (m==6) {
-            buttonSize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1)+10;
+            buttonsize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1)+10;
         } else if (m==4) {
-            buttonSize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1)-20;
+            buttonsize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1)-20;
         } else{
-            buttonSize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1)-30;
+            buttonsize = Math.min(getResources().getDisplayMetrics().widthPixels / m, getResources().getDisplayMetrics().heightPixels / m) - 10 * (m - 1)-30;
         }
         for (int i = 0; i < m * m; i++) {
             Button button = new Button(this);
@@ -159,37 +157,37 @@ public class MainActivity7 extends AppCompatActivity {
             button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
             button.setGravity(Gravity.CENTER);
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-            params.width = buttonSize;
-            params.height = buttonSize;
+            params.width = buttonsize;
+            params.height = buttonsize;
             params.setMargins(10, 10, 10, 10);
 
-            innerContainer.addView(button, params);
+            innercontainer.addView(button, params);
         }
     }
     private void onButtonClick(Button button) {
-        soundPool.play(clickSoundId, 1, 1, 0, 0, 1);
+        soundPool.play(clicksound, 1, 1, 0, 0, 1);
         int index = (int) button.getTag();
         int row = index / m;
         int col = index % m;
 
 
         if(grid[row][col]==currentPlayer || grid[row][col]==0) {
-            ObjectAnimator scaleXUp = ObjectAnimator.ofFloat(button, "scaleX", 1f, 1.2f);
-            ObjectAnimator scaleXDown = ObjectAnimator.ofFloat(button, "scaleX", 1.2f, 1f);
-            ObjectAnimator scaleYUp = ObjectAnimator.ofFloat(button, "scaleY", 1f, 1.2f);
-            ObjectAnimator scaleYDown = ObjectAnimator.ofFloat(button, "scaleY", 1.2f, 1f);
+            ObjectAnimator XUp = ObjectAnimator.ofFloat(button, "scaleX", 1f, 1.2f);
+            ObjectAnimator XDown = ObjectAnimator.ofFloat(button, "scaleX", 1.2f, 1f);
+            ObjectAnimator YUp = ObjectAnimator.ofFloat(button, "scaleY", 1f, 1.2f);
+            ObjectAnimator YDown = ObjectAnimator.ofFloat(button, "scaleY", 1.2f, 1f);
 
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(scaleXUp, scaleYUp, scaleXDown, scaleYDown);
+            animatorSet.playTogether(XUp, YUp, XDown, YDown);
             animatorSet.setDuration(200);
             animatorSet.start();
             grid[row][col] = currentPlayer;
-            if (currentPlayer == 1 && player1FirstTurn) {
+            if (currentPlayer == 1 && player1firstturn) {
                 scores[row][col] = 3;
-                player1FirstTurn = false;
-            } else if (currentPlayer == 2 && player2FirstTurn) {
+                player1firstturn = false;
+            } else if (currentPlayer == 2 && player2firstturn) {
                 scores[row][col] = 3;
-                player2FirstTurn = false;
+                player2firstturn = false;
             } else {
                 scores[row][col] += 1;
             }
@@ -210,7 +208,7 @@ public class MainActivity7 extends AppCompatActivity {
             }
             currentPlayer = (currentPlayer == 1) ? 2 : 1;
             updateScores();
-            if (isOnePlayerMode && currentPlayer == 2) {
+            if (currentPlayer == 2) {
                 if(check(grid)==1){
                     updateHistory(player1name+ "wins!");
 
@@ -223,12 +221,12 @@ public class MainActivity7 extends AppCompatActivity {
             }
             if(currentPlayer==1){
                 layout.setBackgroundResource(R.drawable.backround);
-                outerContainer.setBackgroundResource(R.drawable.backround);
+                outercontainer.setBackgroundResource(R.drawable.backround);
 
             }
             else {
                 layout.setBackgroundResource(R.drawable.backround2);
-                outerContainer.setBackgroundResource(R.drawable.backround2);
+                outercontainer.setBackgroundResource(R.drawable.backround2);
             }
             int i=check(grid);
             if(i==1){
@@ -243,48 +241,48 @@ public class MainActivity7 extends AppCompatActivity {
             }
 
         }
-        else  soundPool.play(wrngbtnID, 1, 1, 0, 0, 1);
+        else  soundPool.play(wrngbtn, 1, 1, 0, 0, 1);
 
 
     }
 
     private void expand(int row, int col) {
-        soundPool.play(expandId, 1, 1, 0, 0, 1);
+        soundPool.play(expandsound, 1, 1, 0, 0, 1);
         int[] dx = {0, 0, -1, 1};
         int[] dy = {-1, 1, 0, 0};
 
         for (int i = 0; i < 4; i++) {
-            int newRow = row + dx[i];
-            int newCol = col + dy[i];
-            if (isValid(newRow, newCol)) {
+            int newrow = row + dx[i];
+            int newcol = col + dy[i];
+            if (isValid(newrow, newcol)) {
 
-                scores[newRow][newCol]++;
-                grid[newRow][newCol]=currentPlayer;
-                Button button = getButtonAt(newRow, newCol);
-                ObjectAnimator scaleXUp = ObjectAnimator.ofFloat(button, "scaleX", 1f, 1.2f);
-                ObjectAnimator scaleXDown = ObjectAnimator.ofFloat(button, "scaleX", 1.2f, 1f);
-                ObjectAnimator scaleYUp = ObjectAnimator.ofFloat(button, "scaleY", 1f, 1.2f);
-                ObjectAnimator scaleYDown = ObjectAnimator.ofFloat(button, "scaleY", 1.2f, 1f);
+                scores[newrow][newcol]++;
+                grid[newrow][newcol]=currentPlayer;
+                Button button = getButtonAt(newrow, newcol);
+                ObjectAnimator XUp = ObjectAnimator.ofFloat(button, "scaleX", 1f, 1.2f);
+                ObjectAnimator XDown = ObjectAnimator.ofFloat(button, "scaleX", 1.2f, 1f);
+                ObjectAnimator YUp = ObjectAnimator.ofFloat(button, "scaleY", 1f, 1.2f);
+                ObjectAnimator YDown = ObjectAnimator.ofFloat(button, "scaleY", 1.2f, 1f);
 
                 AnimatorSet animatorSet = new AnimatorSet();
-                animatorSet.playTogether(scaleXUp, scaleYUp, scaleXDown, scaleYDown);
+                animatorSet.playTogether(XUp, YUp, XDown,YDown);
                 animatorSet.setDuration(200);
                 animatorSet.start();
-                if (scores[newRow][newCol] >= 4) {
-                    scores[newRow][newCol] = 0;
-                    grid[newRow][newCol]=0;
+                if (scores[newrow][newcol] >= 4) {
+                    scores[newrow][newcol] = 0;
+                    grid[newrow][newcol]=0;
                     button.setTextColor(getColor(android.R.color.white));
                     button.setTypeface(null,Typeface.BOLD);
                     button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
                     button.setText("");
-                    expand(newRow, newCol);
+                    expand(newrow, newcol);
                 }
 
                 else {
                     button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
                     button.setTextColor(getColor(R.color.white));
                     button.setTypeface(null,Typeface.BOLD);
-                    button.setText(String.valueOf(scores[newRow][newCol]));
+                    button.setText(String.valueOf(scores[newrow][newcol]));
 
                 }
 
@@ -367,9 +365,9 @@ public class MainActivity7 extends AppCompatActivity {
     private void reset(){
         currentPlayer = 1;
         layout.setBackgroundResource(R.drawable.backround);
-        outerContainer.setBackgroundResource(R.drawable.backround);
-        player1FirstTurn=true;
-        player2FirstTurn=true;
+        outercontainer.setBackgroundResource(R.drawable.backround);
+        player1firstturn=true;
+        player2firstturn=true;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
                 scores[i][j] = 0;
@@ -423,19 +421,19 @@ public class MainActivity7 extends AppCompatActivity {
 
         Button button = getButtonAt(row, col);
         onButtonClick(button);
-        ObjectAnimator scaleXUp = ObjectAnimator.ofFloat(button, "scaleX", 1f, 1.2f);
-        ObjectAnimator scaleXDown = ObjectAnimator.ofFloat(button, "scaleX", 1.2f, 1f);
-        ObjectAnimator scaleYUp = ObjectAnimator.ofFloat(button, "scaleY", 1f, 1.2f);
-        ObjectAnimator scaleYDown = ObjectAnimator.ofFloat(button, "scaleY", 1.2f, 1f);
+        ObjectAnimator XUp = ObjectAnimator.ofFloat(button, "scaleX", 1f, 1.2f);
+        ObjectAnimator XDown = ObjectAnimator.ofFloat(button, "scaleX", 1.2f, 1f);
+        ObjectAnimator YUp = ObjectAnimator.ofFloat(button, "scaleY", 1f, 1.2f);
+        ObjectAnimator YDown = ObjectAnimator.ofFloat(button, "scaleY", 1.2f, 1f);
 
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(scaleXUp, scaleYUp, scaleXDown, scaleYDown);
+        animatorSet.playTogether(XUp, YUp, XDown,YDown);
         animatorSet.setDuration(200);
         animatorSet.start();
 
     }
     private void updateHistory(String result) {
-        if (gameHistory.size() >= MAX_HISTORY_SIZE) {
+        if (gameHistory.size() >= 10) {
             gameHistory.remove(gameHistory.size() - 1);
         }
         gameHistory.add(0, result);
