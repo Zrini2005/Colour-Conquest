@@ -75,6 +75,7 @@ public class MainActivity5 extends AppCompatActivity {
     private ProgressBar progressBar;
     private ProgressBar progressBar2;
     private ProgressBar progressBar3;
+    private boolean layoutstyle;
 
 
     @Override
@@ -85,7 +86,7 @@ public class MainActivity5 extends AppCompatActivity {
         timerTextView2 = findViewById(R.id.Timer2);
         timerTextView3 = findViewById(R.id.Timer3);
         timevar= getIntent().getBooleanExtra("timevar",false);
-
+        layoutstyle=getIntent().getBooleanExtra("layout",true);
         if(timevar) {
             startTimer(30000);
             startTimer2(30000);
@@ -206,7 +207,12 @@ public class MainActivity5 extends AppCompatActivity {
 
             button.setTextColor(getColor(android.R.color.white));
             button.setTypeface(null,Typeface.BOLD);
-            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+            if(layoutstyle) {
+                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+            }
+            else{
+                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+            }
             button.setGravity(Gravity.CENTER);
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = buttonsize;
@@ -257,19 +263,42 @@ public class MainActivity5 extends AppCompatActivity {
                 grid[row][col]=0;
                 button.setTextColor(getResources().getColor(android.R.color.white));
                 button.setTypeface(null,Typeface.BOLD);
-                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                if(layoutstyle) {
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                }
+                else{
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                }
                 button.setText("");
                 expand(row, col);
             }
             else {
-                if(currentPlayer==1){
-                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) );
+                if(currentPlayer==1) {
+                    if (layoutstyle) {
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null));
+                    }
+                    else{
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo1, null));
+
+                    }
                 }
                 else if(currentPlayer==2){
-                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null) );
+                    if (layoutstyle) {
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                    }
+                    else{
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo2, null));
+
+                    }
                 }
                 else{
-                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto3, null) );
+                    if (layoutstyle) {
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto3, null));
+                    }
+                    else{
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo3, null));
+
+                    }
                 }
                 button.setText(String.valueOf(scores[row][col]));
                 button.setTypeface(null,Typeface.BOLD);
@@ -397,21 +426,44 @@ public class MainActivity5 extends AppCompatActivity {
                     grid[newrow][newcol]=0;
                     button.setTextColor(getColor(android.R.color.white));
                     button.setTypeface(null,Typeface.BOLD);
-                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                    if(layoutstyle) {
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                    }
+                    else{
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                    }
                     button.setText("");
                     expand(newrow, newcol);
                 }
 
                 else {
 
-                    if(currentPlayer==1){
-                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) );
+                    if(currentPlayer==1) {
+                        if (layoutstyle) {
+                            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null));
+                        }
+                        else{
+                            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo1, null));
+
+                        }
                     }
                     else if(currentPlayer==2){
-                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null) );
+                        if (layoutstyle) {
+                            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                        }
+                        else{
+                            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo2, null));
+
+                        }
                     }
                     else{
-                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto3, null) );
+                        if (layoutstyle) {
+                            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto3, null));
+                        }
+                        else{
+                            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo3, null));
+
+                        }
                     }
                     button.setTextColor(getColor(R.color.white));
                     button.setTypeface(null,Typeface.BOLD);
@@ -520,7 +572,12 @@ public class MainActivity5 extends AppCompatActivity {
                 Button button=getButtonAt(i,j);
                 button.setTextColor(getResources().getColor(android.R.color.white));
                 button.setTypeface(null,Typeface.BOLD);
-                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                if(layoutstyle) {
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                }
+                else{
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                }
                 button.setText("");
 
             }

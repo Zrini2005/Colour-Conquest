@@ -54,6 +54,7 @@ public class MainActivity7 extends AppCompatActivity {
     private int wrngbtn;
     private boolean player1firstturn=true;
     private boolean player2firstturn=true;
+    private boolean layoutstyle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class MainActivity7 extends AppCompatActivity {
         player1=findViewById(R.id.player1name);
         player1name=getIntent().getStringExtra("player1");
         player1.setText(player1name);
-
+        layoutstyle=getIntent().getBooleanExtra("layout",true);
         String mstring= getIntent().getStringExtra("m");
         m = Integer.parseInt(mstring);
         scores = new int[m][m];
@@ -154,7 +155,12 @@ public class MainActivity7 extends AppCompatActivity {
             });
             button.setTextColor(getColor(android.R.color.white));
             button.setTypeface(null, Typeface.BOLD);
-            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+            if(layoutstyle) {
+                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+            }
+            else{
+                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+            }
             button.setGravity(Gravity.CENTER);
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = buttonsize;
@@ -196,12 +202,23 @@ public class MainActivity7 extends AppCompatActivity {
                 grid[row][col]=0;
                 button.setTextColor(getResources().getColor(android.R.color.white));
                 button.setTypeface(null,Typeface.BOLD);
-                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                if(layoutstyle) {
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                }
+                else{
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                }
                 button.setText("");
                 expand(row, col);
             }
             else {
-                button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                if(layoutstyle) {
+                    button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                }
+                else{
+                    button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo1, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo2, null));
+
+                }
                 button.setText(String.valueOf(scores[row][col]));
                 button.setTypeface(null,Typeface.BOLD);
                 button.setTextColor(getColor(R.color.white));
@@ -273,13 +290,24 @@ public class MainActivity7 extends AppCompatActivity {
                     grid[newrow][newcol]=0;
                     button.setTextColor(getColor(android.R.color.white));
                     button.setTypeface(null,Typeface.BOLD);
-                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                    if(layoutstyle) {
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                    }
+                    else{
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                    }
                     button.setText("");
                     expand(newrow, newcol);
                 }
 
                 else {
-                    button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                    if(layoutstyle) {
+                        button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                    }
+                    else{
+                        button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo1, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo2, null));
+
+                    }
                     button.setTextColor(getColor(R.color.white));
                     button.setTypeface(null,Typeface.BOLD);
                     button.setText(String.valueOf(scores[newrow][newcol]));
@@ -375,7 +403,12 @@ public class MainActivity7 extends AppCompatActivity {
                 Button button=getButtonAt(i,j);
                 button.setTextColor(getResources().getColor(android.R.color.white));
                 button.setTypeface(null,Typeface.BOLD);
-                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                if(layoutstyle) {
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                }
+                else{
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                }
                 button.setText("");
 
             }
@@ -437,6 +470,49 @@ public class MainActivity7 extends AppCompatActivity {
             gameHistory.remove(gameHistory.size() - 1);
         }
         gameHistory.add(0, result);
+
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("currentPlayer", currentPlayer);
+        outState.putBoolean("player1firstturn", player1firstturn);
+        outState.putBoolean("player2firstturn", player2firstturn);
+        outState.putSerializable("scores", scores);
+        outState.putSerializable("grid", grid);
+        outState.putStringArrayList("gameHistory", (ArrayList<String>) gameHistory);
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        currentPlayer = savedInstanceState.getInt("currentPlayer");
+        player1firstturn = savedInstanceState.getBoolean("player1firstturn");
+        player2firstturn = savedInstanceState.getBoolean("player2firstturn");
+        scores = (int[][]) savedInstanceState.getSerializable("scores");
+        grid = (int[][]) savedInstanceState.getSerializable("grid");
+        gameHistory = savedInstanceState.getStringArrayList("gameHistory");
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                Button button = getButtonAt(i, j);
+                if (grid[i][j] == 1) {
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null));
+                } else if (grid[i][j] == 2) {
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                } else {
+                    if (layoutstyle) {
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                    } else {
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                    }
+                }
+                if (scores[i][j] > 0) {
+                    button.setText(String.valueOf(scores[i][j]));
+                } else {
+                    button.setText("");
+                }
+            }
+        }
+        updateScores();
 
     }
 }

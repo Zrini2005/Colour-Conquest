@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class MainActivity2 extends AppCompatActivity {
     String[] sizeArray = {"3", "4", "5", "6", "7"};
     private String[] player= new String[4];
     private EditText[] editTexts;
+    private boolean layout=true;
 
 
     @Override
@@ -180,6 +182,31 @@ public class MainActivity2 extends AppCompatActivity {
                         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
                         button1 = dialog.findViewById(R.id.timedmode);
                         button2 = dialog.findViewById(R.id.normalmode);
+                        RadioButton radioButton=dialog.findViewById(R.id.radioButton);
+                        RadioButton radioButton2=dialog.findViewById(R.id.radioButton2);
+                        radioButton.setChecked(true);
+
+                        radioButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton.isChecked()){
+                                    radioButton2.setChecked(false);
+                                    layout=true;
+
+                                }
+                            }
+                        });
+                        radioButton2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton2.isChecked()){
+                                    radioButton.setChecked(false);
+                                    layout=false;
+
+                                }
+                            }
+                        });
+
                         button1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -187,6 +214,7 @@ public class MainActivity2 extends AppCompatActivity {
                                 intent.putExtra("m", gridsize.getText().toString());
                                 intent.putExtra("player1", player[0]);
                                 intent.putExtra("player2", player[1]);
+                                intent.putExtra("layout", layout);
                                 startActivity(intent);
                                 dialog.dismiss();
                             }
@@ -198,6 +226,7 @@ public class MainActivity2 extends AppCompatActivity {
                                 intent.putExtra("m", gridsize.getText().toString());
                                 intent.putExtra("player1", player[0]);
                                 intent.putExtra("player2", player[1]);
+                                intent.putExtra("layout", layout);
                                 startActivity(intent);
                                 dialog.dismiss();
                             }
@@ -212,6 +241,30 @@ public class MainActivity2 extends AppCompatActivity {
                         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
                         button1 = dialog.findViewById(R.id.timedmode);
                         button2 = dialog.findViewById(R.id.normalmode);
+                        RadioButton radioButton=dialog.findViewById(R.id.radioButton);
+                        RadioButton radioButton2=dialog.findViewById(R.id.radioButton2);
+                        radioButton.setChecked(true);
+
+                        radioButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton.isChecked()){
+                                    radioButton2.setChecked(false);
+                                    layout=true;
+
+                                }
+                            }
+                        });
+                        radioButton2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton2.isChecked()){
+                                    radioButton.setChecked(false);
+                                    layout=false;
+
+                                }
+                            }
+                        });
                         button1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -221,6 +274,7 @@ public class MainActivity2 extends AppCompatActivity {
                                 intent.putExtra("player1", player[0]);
                                 intent.putExtra("player2", player[1]);
                                 intent.putExtra("player3", player[2]);
+                                intent.putExtra("layout", layout);
                                 intent.putExtra("timevar", timevar);
                                 startActivity(intent);
                                 dialog.dismiss();
@@ -235,6 +289,7 @@ public class MainActivity2 extends AppCompatActivity {
                                 intent.putExtra("player1", player[0]);
                                 intent.putExtra("player2", player[1]);
                                 intent.putExtra("player3", player[2]);
+                                intent.putExtra("layout", layout);
                                 intent.putExtra("timevar", timevar);
                                 startActivity(intent);
                                 dialog.dismiss();
@@ -251,6 +306,30 @@ public class MainActivity2 extends AppCompatActivity {
                         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
                         button1 = dialog.findViewById(R.id.timedmode);
                         button2 = dialog.findViewById(R.id.normalmode);
+                        RadioButton radioButton=dialog.findViewById(R.id.radioButton);
+                        RadioButton radioButton2=dialog.findViewById(R.id.radioButton2);
+                        radioButton.setChecked(true);
+
+                        radioButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton.isChecked()){
+                                    radioButton2.setChecked(false);
+                                    layout=true;
+
+                                }
+                            }
+                        });
+                        radioButton2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton2.isChecked()){
+                                    radioButton.setChecked(false);
+                                    layout=false;
+
+                                }
+                            }
+                        });
                         button1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -262,6 +341,7 @@ public class MainActivity2 extends AppCompatActivity {
                                 intent.putExtra("player3", player[2]);
                                 intent.putExtra("timevar", timevar);
                                 intent.putExtra("player4", player[3]);
+                                intent.putExtra("layout", layout);
                                 startActivity(intent);
                                 dialog.dismiss();
                             }
@@ -276,6 +356,7 @@ public class MainActivity2 extends AppCompatActivity {
                                 intent.putExtra("player2", player[1]);
                                 intent.putExtra("player3", player[2]);
                                 intent.putExtra("player4", player[3]);
+                                intent.putExtra("layout", layout);
                                 intent.putExtra("timevar", timevar);
                                 startActivity(intent);
                                 dialog.dismiss();
@@ -284,10 +365,55 @@ public class MainActivity2 extends AppCompatActivity {
                         dialog.show();
 
                     } else if (noplayers==1) {
-                        Intent intent = new Intent(MainActivity2.this, MainActivity7.class);
-                        intent.putExtra("m", gridsize.getText().toString());
-                        intent.putExtra("player1", player[0]);
-                        startActivity(intent);
+                        final Dialog dialog = new Dialog(MainActivity2.this);
+                        dialog.setContentView(R.layout.gamemodedialog);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        dialog.setCancelable(false);
+                        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+                        button1 = dialog.findViewById(R.id.timedmode);
+                        button2 = dialog.findViewById(R.id.normalmode);
+                        TextView textView=dialog.findViewById(R.id.dialogtitle);
+                        RadioButton radioButton=dialog.findViewById(R.id.radioButton);
+                        RadioButton radioButton2=dialog.findViewById(R.id.radioButton2);
+                        radioButton.setChecked(true);
+                        button1.setVisibility(View.GONE);
+                        button2.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
+
+                        radioButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton.isChecked()){
+                                    radioButton2.setChecked(false);
+                                    layout=true;
+                                    Intent intent = new Intent(MainActivity2.this, MainActivity7.class);
+                                    intent.putExtra("m", gridsize.getText().toString());
+                                    intent.putExtra("player1", player[0]);
+                                    intent.putExtra("layout", layout);
+                                    startActivity(intent);
+
+                                }
+                            }
+                        });
+                        radioButton2.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(radioButton2.isChecked()){
+                                    radioButton.setChecked(false);
+                                    layout=false;
+                                    Intent intent = new Intent(MainActivity2.this, MainActivity7.class);
+                                    intent.putExtra("m", gridsize.getText().toString());
+                                    intent.putExtra("player1", player[0]);
+                                    intent.putExtra("layout", layout);
+                                    startActivity(intent);
+
+                                }
+                            }
+                        });
+
+                        dialog.show();
+
 
                     }
                 }

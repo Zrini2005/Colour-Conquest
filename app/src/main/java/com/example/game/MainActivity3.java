@@ -64,6 +64,9 @@ public class MainActivity3 extends AppCompatActivity {
     private boolean player2firstturn=true;
     private ProgressBar progressBar;
     private ProgressBar progressBar2;
+    private boolean layoutstyle;
+    private int powerup;
+    private int a=0;
 
 
     @Override
@@ -81,6 +84,7 @@ public class MainActivity3 extends AppCompatActivity {
         player2name=getIntent().getStringExtra("player2");
         player1.setText(player1name);
         player2.setText(player2name);
+        layoutstyle=getIntent().getBooleanExtra("layout",true);
 
         String mstring= getIntent().getStringExtra("m");
         m = Integer.parseInt(mstring);
@@ -182,8 +186,12 @@ public class MainActivity3 extends AppCompatActivity {
 
             button.setTextColor(getColor(android.R.color.white));
             button.setTypeface(null, Typeface.BOLD);
-            button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
-            button.setGravity(Gravity.CENTER);
+            if(layoutstyle) {
+                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+            }
+            else{
+                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+            } button.setGravity(Gravity.CENTER);
             GridLayout.LayoutParams params = new GridLayout.LayoutParams();
             params.width = buttonsize;
             params.height = buttonsize;
@@ -217,6 +225,31 @@ public class MainActivity3 extends AppCompatActivity {
             } else if (currentPlayer == 2 && player2firstturn) {
                 scores[row][col] = 3;
                 player2firstturn = false;
+                if(powerup==1 || powerup==2) {
+                    final Dialog dialog = new Dialog(MainActivity3.this);
+                    dialog.setContentView(R.layout.dialog4);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    dialog.setCancelable(false);
+                    dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+                    Button button2 = dialog.findViewById(R.id.button1);
+                    TextView textView1 = dialog.findViewById(R.id.textview1);
+                    TextView textView2 = dialog.findViewById(R.id.textview2);
+                    if(powerup==1) {
+                        textView1.setText("POWERUP FOR " +player1name);
+                    }
+                    if(powerup==2) {
+                        textView1.setText("POWERUP FOR " + player2name);
+                    }
+                    textView2.setText("The Given Player's normal Expansion is even more expanded for once!!!  ");
+                    button2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                }
             } else {
                 scores[row][col] += 1;
             }
@@ -225,13 +258,24 @@ public class MainActivity3 extends AppCompatActivity {
                 grid[row][col]=0;
                 button.setTextColor(getResources().getColor(android.R.color.white));
                 button.setTypeface(null,Typeface.BOLD);
-                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                if(layoutstyle) {
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                }
+                else{
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                }
                 button.setText("");
                 expand(row, col);
             }
 
             else {
-                button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                if(layoutstyle) {
+                    button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                }
+                else{
+                    button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo1, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo2, null));
+
+                }
                 button.setText(String.valueOf(scores[row][col]));
                 button.setTypeface(null,Typeface.BOLD);
                 button.setTextColor(getColor(R.color.white));
@@ -245,26 +289,32 @@ public class MainActivity3 extends AppCompatActivity {
                 outercontainer.setBackgroundResource(R.drawable.backround);
                 rotateButtons();
                 resumeTimer();
-                pauseTimer2();
+                if(!timerPaused2) {
+                    pauseTimer2();
+                }
 
             }
             else {
                 layout.setBackgroundResource(R.drawable.backround2);
                 outercontainer.setBackgroundResource(R.drawable.backround2);
                 rotateButtons();
-                pauseTimer();
+                if(!timerPaused) {
+                    pauseTimer();
+                }
                 resumeTimer2();
             }
             int i=check(grid);
             if(i==1){
 
                 updateHistory(player1name+ " wins! in Timed Mode");
+                powerup=2;
 
                 terminate(player1name);
             }
             else if(i==2){
 
                 updateHistory(player2name+ " wins! in Timed Mode");
+                powerup=1;
 
                 terminate(player2name);
             }
@@ -279,8 +329,18 @@ public class MainActivity3 extends AppCompatActivity {
         soundPool.play(expandsound, 1, 1, 0, 0, 1);
         int[] dx = {0, 0, -1, 1};
         int[] dy = {-1, 1, 0, 0};
+        if(powerup==1 && currentPlayer==1 && a<1){
+            dx = new int[]{0, 0, -1, 1, 0, 0, -2, 2};
+            dy = new int[]{-1, 1, 0, 0, -2, 2, 0, 0};
+            a++;
+        }
+        if(powerup==2 && currentPlayer==2 && a<1){
+            dx = new int[]{0, 0, -1, 1, 0, 0, -2, 2};
+            dy = new int[]{-1, 1, 0, 0, -2, 2, 0, 0};
+            a++;
+        }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < dx.length; i++) {
             int newrow = row + dx[i];
             int newcol = col + dy[i];
             if (isValid(newrow, newcol)) {
@@ -302,13 +362,24 @@ public class MainActivity3 extends AppCompatActivity {
                     grid[newrow][newcol]=0;
                     button.setTextColor(getColor(android.R.color.white));
                     button.setTypeface(null,Typeface.BOLD);
-                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                    if(layoutstyle) {
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                    }
+                    else{
+                        button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                    }
                     button.setText("");
                     expand(newrow, newcol);
                 }
 
                 else {
-                    button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                    if(layoutstyle) {
+                        button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.butto, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.butto2, null));
+                    }
+                    else{
+                        button.setBackground(currentPlayer == 1 ? ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo1, null) : ResourcesCompat.getDrawable(getResources(), R.drawable.buttoo2, null));
+
+                    }
                     button.setTextColor(getColor(R.color.white));
                     button.setTypeface(null,Typeface.BOLD);
                     button.setText(String.valueOf(scores[newrow][newcol]));
@@ -397,6 +468,7 @@ public class MainActivity3 extends AppCompatActivity {
         outercontainer.setBackgroundResource(R.drawable.backround);
         player1firstturn=true;
         player2firstturn=true;
+        a=0;
         progressBar.setProgress(30);
         progressBar2.setProgress(30);
         rotateButtons();
@@ -407,8 +479,12 @@ public class MainActivity3 extends AppCompatActivity {
                 Button button=getButtonAt(i,j);
                 button.setTextColor(getResources().getColor(android.R.color.white));
                 button.setTypeface(null,Typeface.BOLD);
-                button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
-                button.setText("");
+                if(layoutstyle) {
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox, null));
+                }
+                else{
+                    button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gridbox2, null));
+                } button.setText("");
 
             }
         }
@@ -474,6 +550,7 @@ public class MainActivity3 extends AppCompatActivity {
                 timerTextView.setText("Time's up!");
                 updateHistory(player2name + " wins! in Timed Mode");
                 terminate(player2name);
+                powerup=1;
             }
         }.start();
         timerPaused = false;
@@ -517,6 +594,7 @@ public class MainActivity3 extends AppCompatActivity {
                 timerTextView2.setText("Time's up!");
                 updateHistory(player1name + " wins! in Timed Mode" );
                 terminate(player1name);
+                powerup=2;
             }
         }.start();
         timerPaused2 = false;
@@ -560,6 +638,4 @@ public class MainActivity3 extends AppCompatActivity {
             }
         }
     }
-
-
 }
