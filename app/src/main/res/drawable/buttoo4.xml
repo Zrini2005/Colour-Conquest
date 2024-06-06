@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <vector
+            android:width="100dp"
+            android:height="100dp"
+            android:viewportWidth="200"
+            android:viewportHeight="200">
+            <path
+                android:fillColor="@color/gridbox"
+                android:pathData="
+                    M100,0
+                    L200,100
+                    L100,200
+                    L0,100
+                    Z"/>
+        </vector>
+    </item>
+    <item
+        android:left="7dp"
+        android:top="7dp"
+        android:right="7dp"
+        android:bottom="7dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/gridbox" />
+            <corners android:radius="30dp"/>
+        </shape>
+    </item>
+    <item android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp">
+        <shape android:shape="oval">
+            <solid android:color="#0F9D58" />
+            <corners android:radius="30dp"/>
+        </shape>
+    </item>
+
+</layer-list>
